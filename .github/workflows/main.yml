@@ -103,4 +103,5 @@ jobs:
           to: saurav.tuladhar@zakipoint.com
           from: ZPH QA Automation
           body: ${{ env.EMAIL_BODY }}
+          content_type: text/html
           attachments: test-results/*.txt
