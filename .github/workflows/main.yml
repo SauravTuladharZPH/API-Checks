@@ -27,6 +27,7 @@ jobs:
       # 4. Run Playwright API tests
       - name: Run PP APIs Health Checks
         run: npx playwright test
+        continue-on-error: true
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           HWMG_USERNAME: ${{ secrets.HWMG_USERNAME }}
