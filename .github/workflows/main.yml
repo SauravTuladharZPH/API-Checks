@@ -1,0 +1,101 @@
+name: Provider Portal APIs Health Check
+
+on:
+  schedule:
+    - cron: "0 * * * *" # Every hour at minute 0
+  workflow_dispatch:
+
+jobs:
+  run-api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Run Playwright API tests
+      - name: Run API Health Checks
+        run: npx playwright test
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          HWMG_USERNAME: ${{ secrets.HWMG_USERNAME }}
+          HWMG_PASSWORD: ${{ secrets.HWMG_PASSWORD }}
+          HWMG_CLIENTID: ${{ secrets.HWMG_CLIENTID }}
+          COBALT_USERNAME: ${{ secrets.COBALT_USERNAME }}
+          COBALT_PASSWORD: ${{ secrets.COBALT_PASSWORD }}
+          COBALT_CLIENTID: ${{ secrets.COBALT_CLIENTID }}
+          # Add more clients as needed
+
+      # 5. Archive test results as artifacts
+      - name: Upload test-results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-test-results
+          path: test-results/
+
+      # 6. Generate per-client summary considering known errors
+      - name: Generate email summary
+        id: summary
+        run: |
+          KNOWN_ERRORS_FILE="./Data/errorMessages.txt"
+          KNOWN_ERRORS=$(tr '\n' '|' < "$KNOWN_ERRORS_FILE" | sed 's/|$//')
+
+          EMAIL_BODY="API Health Check Summary:\n\n"
+          TOTAL_CLIENTS=0
+
+          for file in test-results/*_api_results.txt; do
+            TOTAL_CLIENTS=$((TOTAL_CLIENTS+1))
+            CLIENT=$(basename "$file" _api_results.txt)
+            TOTAL_APIS=$(grep -c "URL       :" "$file")
+
+            # Count FAILED APIs: status not 200 OR message matches known errors
+            FAILED_APIS=$(awk -v errors="$KNOWN_ERRORS" '
+              BEGIN { RS="-----------------------------"; FS="\n"; fail=0 }
+              {
+                status_line = $0
+                match(status_line, /Status\s+: ([^ \n]+)/, status)
+                match(status_line, /Message\s+: (.*)/, msg)
+                if (status[1] != "200" || (msg[1] ~ errors)) {
+                  fail++
+                }
+              }
+              END { print fail }
+            ' "$file")
+
+            PASSED_APIS=$((TOTAL_APIS - FAILED_APIS))
+
+            EMAIL_BODY+="$CLIENT\n✅ Passed APIs : $PASSED_APIS/$TOTAL_APIS\n❌ Failed APIs : $FAILED_APIS/$TOTAL_APIS\n\n"
+          done
+
+          EMAIL_BODY+="Please find the attached detailed results for each client.\n"
+
+          # Export for GitHub Actions
+          echo "EMAIL_BODY<<EOF" >> $GITHUB_ENV
+          echo -e "$EMAIL_BODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "TOTAL_CLIENTS=$TOTAL_CLIENTS" >> $GITHUB_ENV
+
+      # 7. Send email with summary + attachments
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Provider Portal API Health Check Report"
+          to: saurav.tuladhar@zakipoint.com
+          from: ZPH QA Automation
+          body: ${{ env.EMAIL_BODY }}
+          attachments: test-results/*.txt
