@@ -45,14 +45,17 @@ jobs:
           name: api-test-results
           path: test-results/
 
-      # 6. Generate per-client summary considering known errors
-      - name: Generate email summary
+      # 6. Generate per-client summary with HTML table
+      - name: Generate HTML email summary
         id: summary
         run: |
           KNOWN_ERRORS_FILE="./Data/errorMessages.txt"
           KNOWN_ERRORS=$(tr '\n' '|' < "$KNOWN_ERRORS_FILE" | sed 's/|$//')
 
-          EMAIL_BODY="API Health Check Summary:\n\n"
+          EMAIL_BODY="<b>Provider Portal APIs Health Check Summary</b>"
+          EMAIL_BODY+="<table border='1' cellpadding='5' cellspacing='0'>"
+          EMAIL_BODY+="<tr><th>Client</th><th>Total APIs</th><th>Passed APIs</th><th>Failed APIs</th></tr>"
+
           TOTAL_CLIENTS=0
 
           for file in test-results/*_api_results.txt; do
@@ -76,10 +79,11 @@ jobs:
 
             PASSED_APIS=$((TOTAL_APIS - FAILED_APIS))
 
-            EMAIL_BODY+="$CLIENT\n✅ Passed APIs : $PASSED_APIS/$TOTAL_APIS\n❌ Failed APIs : $FAILED_APIS/$TOTAL_APIS\n\n"
+            EMAIL_BODY+="<tr><td>$CLIENT</td><td>$TOTAL_APIS</td><td>$PASSED_APIS</td><td>$FAILED_APIS</td></tr>"
           done
 
-          EMAIL_BODY+="Please find the attached detailed results for each client.\n"
+          EMAIL_BODY+="</table>"
+          EMAIL_BODY+="<p>Please find the attached detailed results for each client.</p>"
 
           # Export for GitHub Actions
           echo "EMAIL_BODY<<EOF" >> $GITHUB_ENV
