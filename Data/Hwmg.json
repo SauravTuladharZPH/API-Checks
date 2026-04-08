@@ -1,0 +1,197 @@
+{
+  "login": {
+    "url": "https://ssokeycloak-uat.zakipointhealth.com/realms/zakipoint-products/protocol/openid-connect/token"
+  },
+  "apis": [
+    {
+      "method": "POST",
+      "url": "/api/eligibility/v2/checkEligibility",
+      "payload": {
+        "groupId": "HWMG",
+        "patientDob": "07/04/1985",
+        "memberIdOrSsnOrEmployeeId": "998421412-00",
+        "providerTinOrNpi": "990352380"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/eligibility/v2/check",
+      "payload": {
+        "groupId": "HWMG",
+        "providerTinOrNpi": "881534288",
+        "patientDob": "07/24/1988",
+        "memberIdOrSsn": "010028447-00"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/eligibilityFaxBack",
+      "payload": {
+        "groupId": "HWMG",
+        "divisionId": "54691",
+        "memberId": "58c9a76672b95c8501130ab1f927efc3hwmg",
+        "providerTinOrNpi": "990175536",
+        "claimCoverageCode": "MED"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/claimFaxBack",
+      "payload": {
+        "groupId": "HWMG",
+        "divisionId": "51777",
+        "memberId": "71f636853e3dc3bb525a191873f88b06hwmg",
+        "providerTinOrNpi": "874563097",
+        "serviceToDate": "01/30/2024",
+        "serviceFromDate": "01/30/2024",
+        "patientDob": "04/18/2016"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/claim/v2/check",
+      "payload": {
+        "groupId": "HWMG",
+        "providerTinOrNpi": "990209760",
+        "patientDob": "02/25/1985",
+        "serviceFromDate": "02/14/2025",
+        "serviceToDate": "02/14/2025",
+        "memberIdOrSsn": "010002619-00"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/faxBackFullDoc",
+      "payload": {
+        "groupId": "HWMG",
+        "claimCoverageCode": "MED",
+        "divisionId": "56688",
+        "memberId": "8c1470c14e246193f81602de8cbadfc3hwmg",
+        "providerTin": "840597929"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/idcard",
+      "payload": {
+        "divisionId": "57729",
+        "employeeId": "D23NZYEJW4EW5H19HXT4C71DXR",
+        "groupId": "HWMG",
+        "memberId": "f3f6594060594e6ef11097953283bd5bhwmg",
+        "planId": "1052-7043"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/lookup",
+      "payload": {
+        "groupId": "HWMG",
+        "employeeIdOrSsn": "010028447"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/faxback/claimFaxBack",
+      "payload": {
+        "groupId": "HWMG",
+        "divisionId": "57729",
+        "providerTinOrNpi": "471580265",
+        "patientDob": "01/30/1970",
+        "serviceFromDate": "11/17/2025",
+        "serviceToDate": "11/17/2025",
+        "memberId": "f3f6594060594e6ef11097953283bd5bhwmg",
+        "claimCoverageCode": "MED"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/faxback/eligibilityFaxBack",
+      "payload": {
+        "claimCoverageCode": "MED",
+        "divisionId": "52048",
+        "groupId": "HWMG",
+        "memberId": "1ed68a25ad2f205b2a16195fef5f4e9dhwmg",
+        "providerTin": "990177350"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/sbcDoc",
+      "payload": {
+        "divisionId": "57729",
+        "groupId": "HWMG",
+        "planId": "1052-7043",
+        "claimCoverageCode": "MED"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/eobCard",
+      "payload": {
+        "memberId": "f3f6594060594e6ef11097953283bd5bhwmg",
+        "groupId": "HWMG",
+        "divisionId": "57729",
+        "employeeId": "D23NZYEJW4EW5H19HXT4C71DXR",
+        "claimNumber": "225-0000501586-00",
+        "claimCoverageCode": "DEN"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/claim/detail",
+      "payload": {
+        "memberId": "f3f6594060594e6ef11097953283bd5bhwmg",
+        "groupId": "HWMG",
+        "claimId": "225-0000501586-00",
+        "claimCoverageCode": "DEN"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/provider/getProviderNpiDetailsByTin",
+      "payload": {
+        "groupId": "HWMG",
+        "tin": "990177350"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/provider/getProviderDetailByTin",
+      "payload": {
+        "groupId": "HWMG",
+        "tin": "990177350"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/provider/getProviderDetailByNpi",
+      "payload": {
+        "groupId": "HWMG",
+        "npi": "1609990290"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/documentDelivery/sendEmail",
+      "payload": {
+        "groupId": "HWMG",
+        "recipientEmail": "saurav.tuladhar@zakipoint.com",
+        "memberId": "998408017-00",
+        "documentType": "ID",
+        "providerTinOrNpi": "990240499",
+        "claimCoverageCode":"MED"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/documentDelivery/sendSMS",
+      "payload": {
+        "groupId": "HWMG",
+        "recipientPhone": "508-251-9773",
+        "memberId": "998408017-00",
+        "documentType": "SBC",
+        "claimCoverageCode":"MED"
+      }
+    }
+  ]
+}

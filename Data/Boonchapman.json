@@ -1,0 +1,197 @@
+{
+  "login": {
+    "url": "https://ssokeycloak-uat.zakipointhealth.com/realms/zakipoint-products/protocol/openid-connect/token"
+  },
+  "apis": [
+    {
+      "method": "POST",
+      "url": "/api/eligibility/v2/checkEligibility",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "patientDob": "11/11/1984",
+        "memberIdOrSsnOrEmployeeId": "100215001",
+        "providerTinOrNpi": "333809572"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/eligibility/v2/check",
+      "payload": {
+        "groupId":"boonchapman",
+        "providerTinOrNpi":"261388711",
+        "patientDob":"08/13/2015",
+        "memberIdOrSsn":"30583196001"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/eligibilityFaxBack",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "divisionId": "002949",
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "providerTinOrNpi": "333809572",
+        "claimCoverageCode": "DEN"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/claimFaxBack",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "divisionId": "002949",
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "providerTinOrNpi": "333809572",
+        "serviceToDate": "08/22/2025",
+        "serviceFromDate": "08/22/2025",
+        "patientDob": "11/11/1984"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/claim/v2/check",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "providerTinOrNpi": "333809572",
+        "patientDob": "11/11/1984",
+        "serviceFromDate": "08/22/2025",
+        "serviceToDate": "08/22/2025",
+        "memberIdOrSsn": "100215001"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/faxBackFullDoc",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "claimCoverageCode": "MED",
+        "divisionId": "002949",
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "providerTin": "333809572"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/idcard",
+      "payload": {
+        "divisionId": "002949",
+        "employeeId": "X4M05NJCRRCPSS24DE550AJAV8",
+        "groupId": "BOONCHAPMAN",
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "planId": "002949A"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/lookup",
+      "payload": {
+        "employeeIdOrSsn": "500010589",
+        "groupId": "BOONCHAPMAN"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/faxback/claimFaxBack",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "divisionId": "002949",
+        "providerTinOrNpi": "333809572",
+        "patientDob": "11/11/1984",
+        "serviceFromDate": "08/22/2025",
+        "serviceToDate": "08/22/2025",
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "claimCoverageCode": "DEN"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/faxback/eligibilityFaxBack",
+      "payload": {
+        "claimCoverageCode": "DEN",
+        "divisionId": "002949",
+        "groupId": "BOONCHAPMAN",
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "providerTin": "333809572"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/sbcDoc",
+      "payload": {
+        "divisionId": "002949",
+        "groupId": "BOONCHAPMAN",
+        "planId": "002949A",
+        "claimCoverageCode": "MED"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/member/eobCard",
+      "payload": {
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "groupId": "BOONCHAPMAN",
+        "divisionId": "002949",
+        "employeeId": "X4M05NJCRRCPSS24DE550AJAV8",
+        "claimNumber": "225B7835800",
+        "claimCoverageCode": "DEN"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/claim/detail",
+      "payload": {
+        "memberId": "3851abe43db24c0d974c8de21c0cb638boon",
+        "groupId": "BOONCHAPMAN",
+        "claimId": "225B7835800",
+        "claimCoverageCode": "DEN"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/provider/getProviderNpiDetailsByTin",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "tin": "333809572"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/provider/getProviderDetailByTin",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "tin": "333809572"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/provider/getProviderDetailByNpi",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "npi": "333809572"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/documentDelivery/sendEmail",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "recipientEmail": "saurav.tuladhar@zakipoint.com",
+        "memberId": "30583196001",
+        "documentType": "ID",
+        "providerTinOrNpi": "261388711",
+        "claimCoverageCode": "MED"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/documentDelivery/sendSMS",
+      "payload": {
+        "groupId": "BOONCHAPMAN",
+        "recipientPhone": "508-251-9773",
+        "memberId": "30583196001",
+        "documentType": "SBC",
+        "claimCoverageCode": "MED"
+      }
+    }
+  ]
+}

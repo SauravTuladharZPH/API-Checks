@@ -1,0 +1,19 @@
+{
+  "name": "pp-api-health-check",
+  "version": "1.0.0",
+  "main": "apiTest.spec.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.59.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.1"
+  }
+}
