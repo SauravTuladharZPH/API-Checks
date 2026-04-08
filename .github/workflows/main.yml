@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-api-tests:
+  Provider-Portal-APIs-Health-Check:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       # 4. Run Playwright API tests
-      - name: Run API Health Checks
+      - name: Run PP APIs Health Checks
         run: npx playwright test
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -38,7 +38,7 @@ jobs:
           # Add more clients as needed
 
       # 5. Archive test results as artifacts
-      - name: Upload test-results as artifact
+      - name: Upload test artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-test-results
